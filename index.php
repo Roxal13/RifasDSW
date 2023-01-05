@@ -21,8 +21,12 @@ if (isset( $_SERVER['PATH_INFO'])) {
   }else if($partes[1] == "raffle" && isset($_POST['title']) && isset($_POST['begin']) && isset($_POST['end'])){
     $rController->crearRifa($_POST['title'], $_POST['begin'], $_POST['end']);
   }else if($partes[1] == "raffle") {
-    $rController->verRifa();
-  }else if($partes[1] == "game")
+    $rController->verCreacionRifa();
+  }else if(isset($partes[2]) && $partes[2] == "delete" && isset($partes[3])) {
+    $rController->borrarRifa($partes[3]);
+  }else if(isset($partes[2]) && $partes[2] == "print" && isset($partes[3])) {
+    $rController->verRifa($partes[3]);
+  } else if($partes[1] == "game")
     $rController->verLista();
 }else{
   $uController->principal();

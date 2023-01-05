@@ -5,7 +5,7 @@ class RifaController{
 
   function __construct()
   {
-    $this->rifas = isset($_SESSION['rifas']) ? $_SESSION['rifas'] : [];;
+    $this->rifas = isset($_SESSION['rifas']) ? $_SESSION['rifas'] : [];
   }
 
   function verLista() {
@@ -14,8 +14,14 @@ class RifaController{
     require('views/lista.php');
   }
 
-  function verRifa() {
-    require('views/raffle.php');
+  function verCreacionRifa() {
+    require('views/crearRifa.php');
+  }
+
+  function verRifa($id) {
+    $rifa = $this->rifas[$id];
+
+    require('views/verRifa.php');
   }
 
   function crearRifa($title, $begin, $end) {
@@ -25,6 +31,13 @@ class RifaController{
     $_SESSION['rifas'] = $this->rifas;
 
     header("location: /index.php");
+  }
+
+  function borrarRifa($id) {
+    array_splice($this->rifas, $id, 1);
+    $_SESSION['rifas'] = $this->rifas;
+
+    header("location: /index.php/game");
   }
 
 }
