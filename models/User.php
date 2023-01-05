@@ -7,8 +7,20 @@ class User {
   function __construct($username, $password, $level)
   {
     $this->username = $username;
-    $this->username = $password;
-    $this->username = $level;
+    $this->password = $password;
+    $this->level = $level;
+  }
+
+  function getUsername() {
+    return $this->username;
+  }
+
+  function getPassword() {
+    return $this->password;
+  }
+
+  function getLevel() {
+    return $this->level;
   }
 }
 ?>

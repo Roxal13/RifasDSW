@@ -1,14 +1,13 @@
 <?php
-include_once("models/User.php");
 
-class UserController {
+class UserController{
   public $users;
 
   function __construct()
   {
     $this->users = [
-      new User ("pepe", "1234", 1),
-      new User ("maria", "1234", 2)
+      new User("pepe", "1234", 1),
+      new User("maria", "1234", 2)
     ];
   }
 
@@ -16,8 +15,37 @@ class UserController {
     require_once('views/login.php');
   }
 
-  function login() {
-
+  function searchUser($username, $password) {
+    foreach($this->users as $user) {
+      if($user->getUsername() == $username && $user->getPassword() == $password) {
+        return $user;
+      }
+    }
   }
+
+  function login($username, $password) {
+    $user = $this->searchUser($username, $password);
+    if(isset($user)){
+      $_SESSION['user'] = $user;
+      header("location: /index.php");
+    }else{
+      unset($_POST['username']);
+      unset($_POST['password']);
+      header("location: /index.php/login");
+    }
+  }
+
+  function logout(){
+    unset($_SESSION['user']);
+    header ("location: /index.php");
+  }
+
+  function principal() {
+    if(isset($_SESSION['user'])){
+      $user = $_SESSION['user'];
+    }
+    include('views/principal.php');
+  }
+  
 }
 ?>

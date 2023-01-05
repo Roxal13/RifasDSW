@@ -1,7 +1,7 @@
 <?php
 include_once('includes/header.php');
 ?>
-<form class="m-4">
+<form class="m-4" method="post">
   <div class="form-group">
     <label for="username">Nombre</label>
     <input type="text" class="form-control" id="username" name="username">
