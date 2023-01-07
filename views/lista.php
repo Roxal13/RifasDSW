@@ -5,7 +5,8 @@ include_once('includes/header.php');
   <h1>Lista de Sorteos del usuario</h1>
   <ol class="list-group">
   <?php
-  foreach($rifas as $rifa) {
+  foreach($sorteo as $rifa) {
+    if($rifa instanceof Rifa) {
   ?>
   <div class="card">
     <div class="card-body d-flex justify-content-between ml-2">
@@ -17,12 +18,31 @@ include_once('includes/header.php');
       </li>
       </div>
       <div class="relative-right">
-        <a class="btn btn-danger" type="button" href="/index.php/game/delete/<?=array_search($rifa, $rifas)?>">Borrar</a>
-        <a class="btn btn-success" type="button" href="/index.php/game/print/<?=array_search($rifa, $rifas)?>">Imprimir</a>
+        <a class="btn btn-danger" type="button" href="/index.php/game/delete/<?=array_search($rifa, $sorteo)?>">Borrar</a>
+        <a class="btn btn-success" type="button" href="/index.php/game/print/<?=array_search($rifa, $sorteo)?>">Imprimir</a>
       </div>
     </div>
   </div>
   <?php
+    }else if($rifa instanceof Domino) {
+  ?>
+  <div class="card">
+    <div class="card-body d-flex justify-content-between ml-2">
+      <div>
+      <li>
+        <b><?=$rifa->title?></b>
+        <br>
+        Número más alto de ficha: <?=$rifa->max?>
+      </li>
+      </div>
+      <div class="relative-right">
+        <a class="btn btn-danger" type="button" href="/index.php/game/delete/<?=array_search($rifa, $sorteo)?>">Borrar</a>
+        <a class="btn btn-success" type="button" href="/index.php/game/print/<?=array_search($rifa, $sorteo)?>">Imprimir</a>
+      </div>
+    </div>
+  </div>
+  <?php
+    }
   }
   ?>
   </ol>

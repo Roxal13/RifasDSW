@@ -5,11 +5,11 @@ class SorteoController{
 
   function __construct()
   {
-    $this->rifas = isset($_SESSION['sorteo']) ? $_SESSION['sorteo'] : [];
+    $this->sorteo = isset($_SESSION['sorteo']) ? $_SESSION['sorteo'] : [];
   }
 
   function verLista() {
-    $rifas = $this->rifas;
+    $sorteo = $this->sorteo;
 
     require('views/lista.php');
   }
@@ -18,10 +18,33 @@ class SorteoController{
     require('views/crearRifa.php');
   }
 
-  function verRifa($id) {
-    $rifa = $this->rifas[$id];
+  function verCreacionDomino() {
+    require('views/crearDomino.php');
+  }
 
-    require('views/verRifa.php');
+  function imprimir($id) {
+    $selected = $this->sorteo[$id];
+
+    require('views/imprimirSorteo.php');
+  }
+
+  function añadirValor($valor) {
+    array_push($this->sorteo, $valor);
+
+    $this->updateSorteo();
+
+    header("location: /index.php");
+  }
+
+  function borrarValor($id) {
+    array_splice($this->sorteo, $id, 1);
+    $_SESSION['sorteo'] = $this->sorteo;
+
+    header("location: /index.php/game");
+  }
+
+  function updateSorteo() {
+    $_SESSION['sorteo'] = $this->sorteo;
   }
 }
 ?>
